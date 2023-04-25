@@ -12,8 +12,8 @@ export class BaseService {
 
   rout: string = '';
 
-  add(model: any): any {
-    return this.http.post(this.rout + 'add', model, {});
+  add(model: any): void {
+    //localStorage.setItem(model);
   }
 
   update(model: any) {
@@ -26,13 +26,12 @@ export class BaseService {
     return this.http.post(this.rout + 'delete', {}, {params: params});
   }
 
-  get(id: number): any {
-    let params = new HttpParams().set('id', id);
-    return this.http.post(this.rout + 'get', {}, {params: params});
+  get(value: string): any {
+    return localStorage.getItem(value);
   }
 
 
-  getList() {
-    return this.http.post(this.rout + 'getList', {}, {});
+  getList(value: string) {
+    return localStorage.getItem(value);
   }
 }
