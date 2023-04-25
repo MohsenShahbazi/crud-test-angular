@@ -17,7 +17,7 @@ export class CustomerListComponent implements OnInit {
   }
 
   dataSource = new MatTableDataSource<Customer>();
-  displayedColumns: string[] = ['Firstname', 'Lastname', 'DateOfBirth', 'PhoneNumber', 'Email', 'BankAccountNumber'];
+  displayedColumns: string[] = ['firstName', 'lastName', 'birthDate', 'phoneNumber', 'email', 'bankAccountNumber'];
 
 
   ngOnInit(): void {
