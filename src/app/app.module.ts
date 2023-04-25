@@ -1,8 +1,8 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 
-import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {AppComponent} from './app.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatTableModule} from "@angular/material/table";
 import {MatDividerModule} from "@angular/material/divider";
 import {MatDatepickerModule} from "@angular/material/datepicker";
@@ -17,8 +17,10 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatIconModule} from "@angular/material/icon";
 import {MatListModule} from "@angular/material/list";
 import {AppRoutingModule} from "./app-routing.module";
-import { CustomerListComponent } from './customer/customer-list/customer-list.component';
-import { CustomerDialogComponent } from './customer/customer-dialog/customer-dialog.component';
+import {CustomerListComponent} from './customer/customer-list/customer-list.component';
+import {CustomerDialogComponent} from './customer/customer-dialog/customer-dialog.component';
+import {HttpClientModule} from "@angular/common/http";
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -31,7 +33,7 @@ import { CustomerDialogComponent } from './customer/customer-dialog/customer-dia
     BrowserAnimationsModule,
     MatTableModule,
     MatDividerModule,
-
+    HttpClientModule,
     MatDatepickerModule,
     MatFormFieldModule,
     MatNativeDateModule,
@@ -39,9 +41,7 @@ import { CustomerDialogComponent } from './customer/customer-dialog/customer-dia
     ReactiveFormsModule,
     MatTableModule,
     MatSnackBarModule,
-
-
-
+    MatDialogModule,
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
@@ -52,4 +52,5 @@ import { CustomerDialogComponent } from './customer/customer-dialog/customer-dia
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
