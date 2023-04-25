@@ -20,7 +20,9 @@
     "@angular/platform-browser": "~13.2.0",
     "@angular/platform-browser-dynamic": "~13.2.0",
     "@angular/router": "~13.2.0",
+    "bootstrap": "^5.2.3",
     "google-libphonenumber": "^3.2.32",
+    "lodash": "^4.17.21",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
@@ -31,6 +33,7 @@
     "@angular/compiler-cli": "~13.2.0",
     "@types/google-libphonenumber": "^7.4.23",
     "@types/jasmine": "~3.10.0",
+    "@types/lodash": "^4.14.194",
     "@types/node": "^12.11.1",
     "jasmine-core": "~4.0.0",
     "karma": "~6.3.0",

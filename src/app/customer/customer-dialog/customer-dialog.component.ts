@@ -5,6 +5,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {CustomerService} from "../../service/customer.service";
 import {Customer} from "../../model/customer";
 import {messageService} from "../../tools/messagService";
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-customer-dialog',
@@ -69,27 +70,35 @@ export class CustomerDialogComponent implements OnInit {
   }
 
   onSubmit(form: FormGroup) {
+    // we can use .filter with js pure and also use lodash
+    let duplicate = _.find(this.dataSource, function (item: any) {
+      return item.firstName.trim().toLowerCase() == form.value.firstName &&
+        item.lastName.trim().toLowerCase() == form.value.lastName &&
+        item.birthDate == form.value.birthDate;
+    })
 
-    if (this.dataSource.filter(f => f.firstName.trim().toLowerCase() == form.value.firstname &&
-      f.lastName.trim().toLowerCase() == form.value.lastName && f.birthDate == form.value.birthDate).length > 0) {
-
+    if (duplicate) {
       this.messageService.openSnackBar("Some data is duplicate", "Error");
-
-    } else {
-      this.dataSource.push(form.value);
-      this.customerForm.reset();
-
-      this.messageService.openSnackBar("All information is saved", "Success");
-      this.closeDialog();
-
+      return
     }
+    this.dataSource.push(form.value);
+    this.customerForm.reset();
+    this.messageService.openSnackBar("All information is saved", "Success");
+    this.closeDialog();
+
 
     this.customerService.add(JSON.stringify(this.dataSource));
 
   }
 
   closeDialog(): void {
-    this.dialogRef.close();
+    this.dialogRef.close(true);
   }
 
+  /*checkRules(form: FormGroup): boolean {
+    return (f => f.firstName.trim().toLowerCase() == form.value.firstName &&
+      f.lastName.trim().toLowerCase() == form.value.lastName && f.birthDate == form.value.birthDate
+  ).
+    length > 0)
+  }*/
 }
