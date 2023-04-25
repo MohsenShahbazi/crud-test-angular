@@ -30,20 +30,23 @@ export class CustomerListComponent implements OnInit {
     if (dataSource != null && dataSource != '') {
       this.customerList = JSON.parse(dataSource);
       this.dataSource.data = this.customerList;
+    } else {
+      this.customerList = [];
+      this.dataSource.data = this.customerList;
     }
   }
 
   removeData() {
-    localStorage.setItem('dataSource', '');
+    this.customerService.delete('dataSource');
     this.customerList = [];
     this.dataSource.data = this.customerList;
   }
 
   addCustomer() {
-    const dialogRef: MatDialogRef<CustomerDialogComponent, boolean> = this.dialog.open(CustomerDialogComponent, {
-      data: {},
-      width: '400px'
-    });
+    const dialogRef: MatDialogRef<CustomerDialogComponent, boolean> =
+      this.dialog.open(CustomerDialogComponent, {
+        data: {dataSource: this.customerList}
+      });
 
     dialogRef?.afterClosed()?.subscribe((result) => {
       if (result) {
