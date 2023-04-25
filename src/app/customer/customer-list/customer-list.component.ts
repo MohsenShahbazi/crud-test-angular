@@ -25,10 +25,10 @@ export class CustomerListComponent implements OnInit {
   }
 
   getCustomerList() {
-    let dataSource = this.customerService.get('dataSource');
+    let customerList = this.customerService.get('dataSource');
 
-    if (dataSource != null && dataSource != '') {
-      this.customerList = JSON.parse(dataSource);
+    if (customerList != null && customerList != '') {
+      this.customerList = JSON.parse(customerList);
       this.dataSource.data = this.customerList;
     } else {
       this.customerList = [];

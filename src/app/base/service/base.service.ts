@@ -12,11 +12,11 @@ export class BaseService {
 
   rout: string = '';
 
-  add(dataSource: any): void {
-    localStorage.setItem('dataSource', dataSource);
+  add(item: any): void {
+    localStorage.setItem('dataSource', JSON.stringify(item));
   }
 
-  update(model: any): void {
+  update(): void {
   }
 
   delete(item: string) {

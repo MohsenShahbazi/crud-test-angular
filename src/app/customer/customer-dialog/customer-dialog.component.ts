@@ -14,7 +14,7 @@ import * as _ from 'lodash';
 })
 export class CustomerDialogComponent implements OnInit {
   customerForm!: FormGroup;
-  dataSource!: Customer[];
+  customers!: Customer[];
 
   get email() {
     return this.customerForm.get('email');
@@ -42,7 +42,7 @@ export class CustomerDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.createCustomerForm();
-    this.dataSource = this.data?.dataSource;
+    this.customers = this.data?.dataSource;
   }
 
 
@@ -71,23 +71,24 @@ export class CustomerDialogComponent implements OnInit {
 
   onSubmit(form: FormGroup) {
     // we can use .filter with js pure and also use lodash
-    let duplicate = _.find(this.dataSource, function (item: any) {
-      return item.firstName.trim().toLowerCase() == form.value.firstName &&
-        item.lastName.trim().toLowerCase() == form.value.lastName &&
-        item.birthDate == form.value.birthDate;
+
+    let duplicate = _.find(this.customers, function (item: any) {
+      return item.firstName.trim().toLowerCase() == form.value.firstName.toLowerCase() &&
+        item.lastName.trim().toLowerCase() == form.value.lastName.toLowerCase() &&
+        JSON.parse(item.birthDate) == JSON.stringify(form.value.birthDate) && item.email == form.value.email.toString();
     })
 
     if (duplicate) {
       this.messageService.openSnackBar("Some data is duplicate", "Error");
       return
     }
-    this.dataSource.push(form.value);
+    this.customers.push(form.value);
     this.customerForm.reset();
     this.messageService.openSnackBar("All information is saved", "Success");
     this.closeDialog();
 
 
-    this.customerService.add(JSON.stringify(this.dataSource));
+    this.customerService.add(this.customers);
 
   }
 
