@@ -17,10 +17,14 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatIconModule} from "@angular/material/icon";
 import {MatListModule} from "@angular/material/list";
 import {AppRoutingModule} from "./app-routing.module";
+import { CustomerListComponent } from './customer/customer-list/customer-list.component';
+import { CustomerDialogComponent } from './customer/customer-dialog/customer-dialog.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CustomerListComponent,
+    CustomerDialogComponent
   ],
   imports: [
     BrowserModule,
