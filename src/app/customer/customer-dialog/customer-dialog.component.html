@@ -1,1 +1,95 @@
-<p>customer-dialog works!</p>
+<mat-divider></mat-divider>
+<form [formGroup]="customerForm" class="needs-validation" (ngSubmit)="onSubmit(customerForm)" novalidate>
+  <div class="row">
+    <div class="mb-3">
+
+      <div class="form-group">
+        <label for="firstName" class="form-label">
+          <b>
+            First name
+          </b>
+        </label>
+        <input formControlName="firstName" type="text" class="form-control" id="firstName" placeholder="first name">
+
+      </div>
+
+
+    </div>
+    <div class="mb-3">
+      <label for="lastName" class="form-label">
+        <b>
+          Last name
+        </b>
+      </label>
+      <input formControlName="lastName" type="text" class="form-control" id="lastName" placeholder="last name">
+    </div>
+
+    <div class="mb-3">
+      <mat-form-field appearance="fill">
+        <mat-label>Birth date</mat-label>
+        <input formControlName="birthDate" matInput [matDatepicker]="picker">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="mb-3">
+      <label for="phoneNumber" class="form-label">
+        <b>
+          Mobile
+        </b>
+      </label>
+      <input formControlName="phoneNumber" type="tel" class="form-control" id="phoneNumber" placeholder="Mobile Number"
+             [ngClass]="{ 'is-invalid': phoneNumber?.touched && phoneNumber?.errors, 'is-valid': phoneNumber?.valid }">
+      <div class="invalid-feedback" *ngIf="(
+                  phoneNumber?.dirty ||
+                  phoneNumber?.touched
+                           ) &&
+                           phoneNumber?.invalid">
+        your mobile number is not valid, valid number is :<b> +989192330971</b>
+        <div *ngIf="phoneNumber?.errors?.['maxlength']">
+          Mobile must be max 13 characters long.
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="email" class="form-label">
+        <b>
+          Email
+        </b>
+      </label>
+      <input formControlName="email" type="email" class="form-control" id="email" placeholder="mohsen@mohsen.com"
+             [ngClass]="{ 'is-invalid': email?.touched && email?.errors, 'is-valid': email?.valid }">
+      <div class="invalid-feedback" *ngIf="( email?.dirty || email?.touched ) && email?.invalid">
+        Email is not valid. please enter a valid email address
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="bankAccountNumber" class="form-label">
+        <b>
+          Bank account number
+        </b>
+      </label>
+      <input formControlName="bankAccountNumber" type="text" class="form-control" id="bankAccountNumber" placeholder="account number"
+             [ngClass]="{ 'is-invalid': bankAccountNumber?.touched && bankAccountNumber?.errors, 'is-valid': bankAccountNumber?.valid }">
+      <div class="invalid-feedback" *ngIf="( bankAccountNumber?.dirty || bankAccountNumber?.touched ) && bankAccountNumber?.invalid">
+
+        <div *ngIf="bankAccountNumber?.errors?.['maxlength']">
+          Bank Account Number must be max 10 characters long.
+        </div>
+
+        <div *ngIf="bankAccountNumber?.errors?.['minlength']">
+          Bank Account Number must be at least 9 characters long.
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <button type="submit" [disabled]="!relatedForm.valid" mat-raised-button color="primary">Save</button>
+  <button type="reset" mat-raised-button color="accent">Clear</button>
+</form>
+<mat-divider></mat-divider>
