@@ -12,26 +12,18 @@ export class BaseService {
 
   rout: string = '';
 
-  add(model: any): void {
-    //localStorage.setItem(model);
+  add(dataSource: any): void {
+    localStorage.setItem('dataSource', dataSource);
   }
 
-  update(model: any) {
-    return this.http.post(this.rout + 'update', model, {});
+  update(model: any): void {
   }
 
-  delete(id: number) {
-    let params = new HttpParams();
-    params = params.set('id', id);
-    return this.http.post(this.rout + 'delete', {}, {params: params});
+  delete(item: string) {
+    localStorage.removeItem(item);
   }
 
-  get(value: string): any {
-    return localStorage.getItem(value);
-  }
-
-
-  getList(value: string) {
-    return localStorage.getItem(value);
+  get(item: string): any {
+    return localStorage.getItem(item);
   }
 }
