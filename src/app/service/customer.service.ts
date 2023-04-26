@@ -10,6 +10,7 @@ export class CustomerService extends BaseService {
   constructor(http: HttpClient) {
     super(http);
     this.rout = 'customer';
+    this.itemType = 'customers';
   }
 
 

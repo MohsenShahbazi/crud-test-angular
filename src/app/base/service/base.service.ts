@@ -13,20 +13,21 @@ export class BaseService {
 
 
   rout: string = '';
+  itemType: string = '';
 
-  add(item: any, itemType: string): void {
-    let lstItems: any[] = JSON.parse(localStorage.getItem(itemType) ?? '');
+  add(item: any): void {
+    let lstItems: any[] = JSON.parse(localStorage.getItem(this.itemType) ?? '');
     lstItems.push(item);
-    localStorage.setItem(itemType, JSON.stringify(lstItems));
+    localStorage.setItem(this.itemType, JSON.stringify(lstItems));
   }
 
-  update(oldItem: any, newItem: any, itemType: string) {
-    this.delete(oldItem, itemType);
-    this.add(newItem, itemType);
+  update(oldItem: any, newItem: any) {
+    this.delete(oldItem);
+    this.add(newItem);
   }
 
-  delete(item: any, itemType: string) {
-    let lstItems: any[] = JSON.parse(localStorage.getItem(itemType) ?? '');
+  delete(item: any) {
+    let lstItems: any[] = JSON.parse(localStorage.getItem(this.itemType) ?? '');
 
     for (let i = 0; i < lstItems.length; i++) {
       if (lstItems[i].bankAccountNumber == +item.bankAccountNumber) {
@@ -34,18 +35,18 @@ export class BaseService {
         break;
       }
     }
-    localStorage.setItem(itemType, JSON.stringify(item));
+    localStorage.setItem(this.itemType, JSON.stringify(item));
   }
 
-  get(bankAccountNumber: string, itemType: string): any {
-    let lstItems: any[] = JSON.parse(localStorage.getItem(itemType) ?? '');
+  get(bankAccountNumber: string): any {
+    let lstItems: any[] = JSON.parse(localStorage.getItem(this.itemType) ?? '');
     return _.find(lstItems, function (item: any) {
       item['bankAccountNumber'] == bankAccountNumber;
     })
   }
 
-  getAll(itemType: string): any {
-    let lstItems: any[] = JSON.parse(localStorage.getItem(itemType) ?? '');
+  getAll(): any {
+    let lstItems: any[] = JSON.parse(localStorage.getItem(this.itemType) ?? '');
     return lstItems;
   }
 }

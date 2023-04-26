@@ -29,7 +29,7 @@ export class CustomerListComponent implements OnInit {
   }
 
   getCustomerList() {
-    let customerList = this.customerService.getAll('customers');
+    let customerList = this.customerService.getAll();
 
     if (customerList != null && customerList != '') {
       this.customerList = customerList;
@@ -41,7 +41,7 @@ export class CustomerListComponent implements OnInit {
   }
 
   delete(row: any) {
-    this.customerService.delete(row, 'customers');
+    this.customerService.delete(row);
     this.getCustomerList();
     this.snackbar.openSnackBar("Row is deleted", "OK")
   }

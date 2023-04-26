@@ -84,7 +84,7 @@ export class CustomerDialogComponent implements OnInit {
     }
     this.customers.push(form.value);
     this.customerForm.reset();
-    this.customerService.add(this.customers, 'customers');
+    this.customerService.add(this.customers);
     this.messageService.openSnackBar("All information is saved", "Success");
     this.closeDialog();
 
