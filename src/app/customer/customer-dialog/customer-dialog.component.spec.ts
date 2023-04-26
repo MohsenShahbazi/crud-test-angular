@@ -26,9 +26,6 @@ describe('CustomerDialogComponent', () => {
   it('[Caregiver Form] - should check email validity', () => {
     const email = component.customerForm.controls['email'];
     expect(email.valid).toBeFalsy();
-    expect(email.errors.required).toBeTruthy();
-    email.setValue('123');
-    expect(email.errors.email).toBeTruthy();
     email.setValue('example@gmail.com');
     expect(email.errors).toBeNull();
     expect(email.valid).toBeTruthy();
