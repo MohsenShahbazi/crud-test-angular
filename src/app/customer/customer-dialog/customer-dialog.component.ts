@@ -15,7 +15,7 @@ import * as moment from "moment";
 })
 export class CustomerDialogComponent implements OnInit {
   customerForm!: FormGroup;
-  customers!: Customer[];
+  customers: Customer[] = [];
 
   get email() {
     return this.customerForm.get('email');
@@ -43,7 +43,9 @@ export class CustomerDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.createCustomerForm();
-    this.customers = this.data?.dataSource;
+    let customerList = this.customerService.getAll();
+    if (customerList != null && customerList != '')
+      this.customers = JSON.parse(customerList);
   }
 
 
@@ -84,10 +86,9 @@ export class CustomerDialogComponent implements OnInit {
       this.messageService.openSnackBar("Some data is duplicate", "Error");
       return
     }
-    this.customers.push(form.value);
-    this.customerForm.reset();
-    this.customerService.add(this.customers);
+    this.customerService.add(form.value);
     this.messageService.openSnackBar("All information is saved", "Success");
+    this.customerForm.reset();
     this.closeDialog();
 
   }

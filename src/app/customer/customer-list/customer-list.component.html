@@ -1,6 +1,7 @@
 <div class="container">
   <h3>Customer List</h3>
   <button mat-raised-button color="primary" id="addCustomer" (click)="addCustomer()">Add Customer</button>
+  <button mat-raised-button color="primary" (click)="removeData()">Clear Table</button>
 
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 

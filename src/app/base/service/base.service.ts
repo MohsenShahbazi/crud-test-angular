@@ -16,7 +16,11 @@ export class BaseService {
   itemType: string = '';
 
   add(item: any): void {
-    let lstItems: any[] = JSON.parse(localStorage.getItem(this.itemType) ?? '');
+    let lstItems: any[] = [];
+    let lstLocalStorage = localStorage.getItem(this.itemType);
+    if (lstLocalStorage) {
+      lstItems = JSON.parse(lstLocalStorage)
+    }
     lstItems.push(item);
     localStorage.setItem(this.itemType, JSON.stringify(lstItems));
   }
@@ -46,7 +50,6 @@ export class BaseService {
   }
 
   getAll(): any {
-    let lstItems: any[] = JSON.parse(localStorage.getItem(this.itemType) ?? '');
-    return lstItems;
+    return localStorage.getItem(this.itemType);
   }
 }

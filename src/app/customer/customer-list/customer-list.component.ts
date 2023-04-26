@@ -32,7 +32,7 @@ export class CustomerListComponent implements OnInit {
     let customerList = this.customerService.getAll();
 
     if (customerList != null && customerList != '') {
-      this.customerList = customerList;
+      this.customerList = JSON.parse(customerList);
       this.dataSource.data = this.customerList;
     } else {
       this.customerList = [];
@@ -49,7 +49,7 @@ export class CustomerListComponent implements OnInit {
   addCustomer() {
     const dialogRef: MatDialogRef<CustomerDialogComponent, boolean> =
       this.dialog.open(CustomerDialogComponent, {
-        data: {dataSource: this.customerList}
+        data: {}
       });
 
     dialogRef?.afterClosed()?.subscribe((result) => {
@@ -59,5 +59,9 @@ export class CustomerListComponent implements OnInit {
     });
   }
 
+  removeData() {
+    localStorage.removeItem('customers');
+    this.getCustomerList();
+  }
 
 }
