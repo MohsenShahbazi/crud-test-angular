@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators, AbstractControl} from "@angular/forms";
 import {phoneValidator} from "../../tools/phoneValidator";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {CustomerService} from "../../service/customer.service";
@@ -34,6 +34,7 @@ export class CustomerDialogComponent implements OnInit {
   }
 
   constructor(
+    private fb: FormBuilder,
     public dialogRef: MatDialogRef<CustomerDialogComponent>,
     private messageService: messageService,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -50,25 +51,16 @@ export class CustomerDialogComponent implements OnInit {
 
 
   createCustomerForm(): void {
-    this.customerForm = new FormGroup({
-      firstName: new FormControl('', [
-        Validators.required,
-      ]),
-      lastName: new FormControl(''),
-      birthDate: new FormControl('', [Validators.required]),
-      phoneNumber: new FormControl('', [
-        Validators.required,
+    this.customerForm = this.fb.group({
+      firstName: [{value: ''}, Validators.required],
+      lastName: [{value: ''}, Validators.required],
+      birthDate: [{value: ''}, Validators.required],
+      phoneNumber: [{value: ''}, Validators.required,
         phoneValidator,
         Validators.maxLength(13),
-        Validators.minLength(13)
-      ]),
-      email: new FormControl('', [Validators.email,
-        Validators.required
-      ]),
-      bankAccountNumber: new FormControl('', [
-        Validators.required,
-        Validators.minLength(9),
-        Validators.maxLength(10)]),
+        Validators.minLength(13)],
+      email: [{value: ''}, Validators.required, Validators.email],
+      bankAccountNumber: [{value: ''}, Validators.required, Validators.minLength(9), Validators.maxLength(10)],
     });
   }
 
