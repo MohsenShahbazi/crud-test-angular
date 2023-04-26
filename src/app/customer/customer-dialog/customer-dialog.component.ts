@@ -84,22 +84,13 @@ export class CustomerDialogComponent implements OnInit {
     }
     this.customers.push(form.value);
     this.customerForm.reset();
+    this.customerService.add(this.customers, 'customers');
     this.messageService.openSnackBar("All information is saved", "Success");
     this.closeDialog();
-
-
-    this.customerService.add(this.customers);
 
   }
 
   closeDialog(): void {
     this.dialogRef.close(true);
   }
-
-  /*checkRules(form: FormGroup): boolean {
-    return (f => f.firstName.trim().toLowerCase() == form.value.firstName &&
-      f.lastName.trim().toLowerCase() == form.value.lastName && f.birthDate == form.value.birthDate
-  ).
-    length > 0)
-  }*/
 }

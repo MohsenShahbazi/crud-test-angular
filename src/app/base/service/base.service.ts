@@ -1,5 +1,7 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
+import {Customer} from "../../model/customer";
+import * as _ from 'lodash';
 
 @Injectable({
   providedIn: 'root'
@@ -12,18 +14,38 @@ export class BaseService {
 
   rout: string = '';
 
-  add(item: any): void {
-    localStorage.setItem('dataSource', JSON.stringify(item));
+  add(item: any, itemType: string): void {
+    let lstItems: any[] = JSON.parse(localStorage.getItem(itemType) ?? '');
+    lstItems.push(item);
+    localStorage.setItem(itemType, JSON.stringify(lstItems));
   }
 
-  update(): void {
+  update(oldItem: any, newItem: any, itemType: string) {
+    this.delete(oldItem, itemType);
+    this.add(newItem, itemType);
   }
 
-  delete(item: string) {
-    localStorage.removeItem(item);
+  delete(item: any, itemType: string) {
+    let lstItems: any[] = JSON.parse(localStorage.getItem(itemType) ?? '');
+
+    for (let i = 0; i < lstItems.length; i++) {
+      if (lstItems[i].bankAccountNumber == +item.bankAccountNumber) {
+        lstItems.splice(i, 1);
+        break;
+      }
+    }
+    localStorage.setItem(itemType, JSON.stringify(item));
   }
 
-  get(item: string): any {
-    return localStorage.getItem(item);
+  get(bankAccountNumber: string, itemType: string): any {
+    let lstItems: any[] = JSON.parse(localStorage.getItem(itemType) ?? '');
+    return _.find(lstItems, function (item: any) {
+      item['bankAccountNumber'] == bankAccountNumber;
+    })
+  }
+
+  getAll(itemType: string): any {
+    let lstItems: any[] = JSON.parse(localStorage.getItem(itemType) ?? '');
+    return lstItems;
   }
 }

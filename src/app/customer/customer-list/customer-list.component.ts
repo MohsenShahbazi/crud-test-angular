@@ -4,6 +4,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import {CustomerService} from "../../service/customer.service";
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {CustomerDialogComponent} from "../customer-dialog/customer-dialog.component";
+import {messageService} from "../../tools/messagService";
 
 @Component({
   selector: 'app-customer-list',
@@ -13,7 +14,10 @@ import {CustomerDialogComponent} from "../customer-dialog/customer-dialog.compon
 export class CustomerListComponent implements OnInit {
   customerList!: Customer[];
 
-  constructor(private customerService: CustomerService, public dialog: MatDialog) {
+  constructor(
+    private customerService: CustomerService,
+    public dialog: MatDialog,
+    private snackbar: messageService) {
   }
 
   dataSource = new MatTableDataSource<Customer>();
@@ -25,10 +29,10 @@ export class CustomerListComponent implements OnInit {
   }
 
   getCustomerList() {
-    let customerList = this.customerService.get('dataSource');
+    let customerList = this.customerService.getAll('customers');
 
     if (customerList != null && customerList != '') {
-      this.customerList = JSON.parse(customerList);
+      this.customerList = customerList;
       this.dataSource.data = this.customerList;
     } else {
       this.customerList = [];
@@ -36,10 +40,10 @@ export class CustomerListComponent implements OnInit {
     }
   }
 
-  removeData() {
-    this.customerService.delete('dataSource');
-    this.customerList = [];
-    this.dataSource.data = this.customerList;
+  delete(row: any) {
+    this.customerService.delete(row, 'customers');
+    this.getCustomerList();
+    this.snackbar.openSnackBar("Row is deleted", "OK")
   }
 
   addCustomer() {
