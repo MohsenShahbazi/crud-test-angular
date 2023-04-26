@@ -6,6 +6,7 @@ import {CustomerService} from "../../service/customer.service";
 import {Customer} from "../../model/customer";
 import {messageService} from "../../tools/messagService";
 import * as _ from 'lodash';
+import * as moment from "moment";
 
 @Component({
   selector: 'app-customer-dialog',
@@ -75,7 +76,8 @@ export class CustomerDialogComponent implements OnInit {
     let duplicate = _.find(this.customers, function (item: any) {
       return item.firstName.trim().toLowerCase() == form.value.firstName.toLowerCase() &&
         item.lastName.trim().toLowerCase() == form.value.lastName.toLowerCase() &&
-        JSON.parse(item.birthDate) == JSON.stringify(form.value.birthDate) && item.email == form.value.email.toString();
+        moment(form.value.birthDate).format("YYYY-MM-DD").toString() === moment(item.birthDate).format("YYYY-MM-DD").toString() && item.email == form.value.email.toString();
+
     })
 
     if (duplicate) {
